@@ -111,7 +111,7 @@ def std_vector(hRadOrd, lRadOrd, fitted_var):
     fIdx = 0 # first index
     for ii in range(len(stdv)): # obtain the standard deviation of the radial orders
         fIdx = lIdx
-        lIdx += len(tbest.modesOfRadialOrder(lRadOrd + ii))
+        lIdx += len(modesOfRadialOrder(lRadOrd + ii))
         stdv[ii] = np.std(fitted_var[fIdx:lIdx])
 
     return stdv
@@ -127,7 +127,7 @@ def std_projection(hRadOrd, lRadOrd, std_vector):
 
     std = np.array([])
     for ii in range(hRadOrd - lRadOrd + 1):
-        size = len(tbest.modesOfRadialOrder(lRadOrd + ii))
+        size = len(modesOfRadialOrder(lRadOrd + ii))
         std = np.append(std,np.ones(size)*std_vector[ii])
 
     return std
@@ -250,8 +250,6 @@ class Turbulence_Estimator:
         self.tp = self.fit[0]
 
     def zernVariance(self, D, p, x):
-
-        # wrapper for DASP function matCovZernikeL0 with the appropriate signature for leastsq
 
         return nZ_variance(p[0], p[1], D, x[-1])[[m - 1 for m in x]]
 
