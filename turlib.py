@@ -257,12 +257,12 @@ def full_uncertainty_estimator(d, modes, ai2, noise_estimate, n_rec_modes, m, c_
     l0_vector = np.zeros(n_samples)
     s_idx = n_modes_from_radial_order(l_rad_ord - 1)
     standard_deviations = std_projection(h_rad_ord, l_rad_ord, std_vector(h_rad_ord, l_rad_ord, ai2[3:]))
-    r0_i, l0_i = iterative_estimator(d, modes, ai2, noise_estimate, n_rec_modes, m, c_mat)[:2]
+    r0_i, l0_i = iterative_estimator(d, modes, ai2, noise_estimate, n_rec_modes, m, c_mat, n_iter=n_iter)[:2]
     modal_vector = np.zeros(n_rec_modes)
 
     for kk in range(n_samples):
         modal_vector[s_idx:] = np.random.normal(ai2[s_idx:], standard_deviations)
-        r0, l0 = iterative_estimator(d, modes, modal_vector, noise_estimate, n_rec_modes, m, c_mat)[:2]
+        r0, l0 = iterative_estimator(d, modes, modal_vector, noise_estimate, n_rec_modes, m, c_mat, n_iter=n_iter)[:2]
 
         r0_vector[kk] = r0
         l0_vector[kk] = l0
